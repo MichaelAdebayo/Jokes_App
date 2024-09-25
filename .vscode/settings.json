@@ -1,3 +1,6 @@
 {
-    "dotnet.defaultSolution": "JokesApp.sln"
+    "dotnet.defaultSolution": "JokesApp.sln",
+    "files.watcherExclude": {
+        "**/target": true
+    }
 }
