@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using JokesApp.Data;
 using JokesApp.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace JokesApp
 {
@@ -25,6 +26,16 @@ namespace JokesApp
             return View(await _context.Joke.ToListAsync());
         }
 
+        // GET: Joke/ShowSearchForm
+        public async Task<IActionResult> ShowSearchForm() {
+            return View();
+        }
+
+
+        // POST: Joke/ShowSearchResults
+        public async Task<IActionResult> ShowSearchResults(String SearchPhrase) {
+            return View("Index",await _context.Joke.Where( j => j.JokeQuestion.Contains(SearchPhrase) ).ToListAsync());
+        }
         // GET: Joke/Details/5
         public async Task<IActionResult> Details(int? id)
         {
@@ -44,6 +55,8 @@ namespace JokesApp
         }
 
         // GET: Joke/Create
+
+        [Authorize]
         public IActionResult Create()
         {
             return View();
@@ -52,6 +65,7 @@ namespace JokesApp
         // POST: Joke/Create
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,JokeQuestion,JokeAnswer")] Joke joke)
@@ -66,6 +80,7 @@ namespace JokesApp
         }
 
         // GET: Joke/Edit/5
+        [Authorize]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -84,6 +99,7 @@ namespace JokesApp
         // POST: Joke/Edit/5
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
+        [Authorize]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,JokeQuestion,JokeAnswer")] Joke joke)
@@ -117,6 +133,7 @@ namespace JokesApp
         }
 
         // GET: Joke/Delete/5
+        [Authorize]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -135,6 +152,7 @@ namespace JokesApp
         }
 
         // POST: Joke/Delete/5
+        [Authorize]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)

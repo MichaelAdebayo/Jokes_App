@@ -1,15 +1,11 @@
 @model IEnumerable<JokesApp.Models.Joke>
 
+@{
+    ViewData["Title"]= "Index";
+}
 
 
-<!DOCTYPE html>
-
-<html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>Index</title>
-</head>
-<body>
+    <h1>Index</h1>
 <p>
     <a asp-action="Create">Create New</a>
 </p>
@@ -18,9 +14,6 @@
         <tr>
             <th>
                 @Html.DisplayNameFor(model => model.JokeQuestion)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.JokeAnswer)
             </th>
             <th></th>
         </tr>
@@ -32,9 +25,6 @@
                 @Html.DisplayFor(modelItem => item.JokeQuestion)
             </td>
             <td>
-                @Html.DisplayFor(modelItem => item.JokeAnswer)
-            </td>
-            <td>
                 <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
                 <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
@@ -43,5 +33,3 @@
 }
     </tbody>
 </table>
-</body>
-</html>
